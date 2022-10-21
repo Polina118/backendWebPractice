@@ -1,9 +1,19 @@
 package com.webPractice.webPractice.User;
 
+import com.webPractice.webPractice.Appeals.Appeals;
+import lombok.*;
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "users")
 @Table
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
 
     @SequenceGenerator(
@@ -30,7 +40,10 @@ public class User {
 
     private boolean is_Admin;
 
-    public User(){}
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    private List<Appeals> appealsList;
 
     public User(String name, String surname, String role, String email, String password) {
         this.name = name;
@@ -39,61 +52,9 @@ public class User {
         this.email = email;
         this.password = password;
         this.is_Admin = false;
+        this.appealsList = new ArrayList<>();
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isIs_Admin() {
-        return is_Admin;
-    }
-
-    public void setIs_Admin(boolean is_Admin) {
-        this.is_Admin = is_Admin;
+    public void addAppeal(Appeals appeals){
+        this.appealsList.add(appeals);
     }
 }

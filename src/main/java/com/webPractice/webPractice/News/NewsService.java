@@ -23,12 +23,12 @@ public class NewsService {
     }
 
     public void add(News news) {
-        /*Optional<News> newsOptional =
+        Optional<News> newsOptional =
                 newsRepo.findByTitle(news.getTitle());
         if (newsOptional.isPresent()){
             throw new IllegalStateException("title is taken");
         }
-        newsRepo.save(news);*/
+        newsRepo.save(news);
     }
 
     @Transactional
@@ -39,9 +39,9 @@ public class NewsService {
             news.setText(text);
 
         if (title != null && title.length()>0 && !Objects.equals(news.getTitle(), title)){
-//            Optional<News> optionalStudent = newsRepo.findByTitle(title);
-//            if (optionalStudent.isPresent())
-//                throw new IllegalStateException("title taken");
+            Optional<News> optionalStudent = newsRepo.findByTitle(title);
+            if (optionalStudent.isPresent())
+                throw new IllegalStateException("title taken");
             news.setTitle(title);
         }
 

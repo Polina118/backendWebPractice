@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin()
 public class UserController {
 
     private final UserRepository userRepo;
@@ -25,12 +26,12 @@ public class UserController {
 
     @PostMapping("/register")
     public String addUser(@RequestBody User user){
-        /*Optional<User> userOptional =
+        Optional<User> userOptional =
                 userRepo.findByEmail(user.getEmail());
         if (userOptional.isPresent()){
             throw new IllegalStateException("email is taken");
         }
-        userRepo.save(user);*/
+        userRepo.save(user);
         return "success";
     }
 

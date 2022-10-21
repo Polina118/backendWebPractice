@@ -1,5 +1,6 @@
 package com.webPractice.webPractice;
 
+import com.webPractice.webPractice.Appeals.Appeals;
 import com.webPractice.webPractice.News.News;
 import com.webPractice.webPractice.News.NewsRepository;
 import com.webPractice.webPractice.Appeals.AppealsRepository;
@@ -19,8 +20,7 @@ public class WebPracticeApplication {
 
 	@Bean
 	CommandLineRunner commandLineRunner(UserRepository userRepo,
-										NewsRepository newsRepo,
-										AppealsRepository appealsRepo) {
+										NewsRepository newsRepo) {
 		return args -> {
 			try {
 				System.out.println("try");
@@ -31,7 +31,7 @@ public class WebPracticeApplication {
 						"admin@gmail.com",
 						"password");
 				System.out.println("admin");
-				admin.setIs_Admin(true);
+				admin.set_Admin(true);
 				User polina = new User(
 						"polina",
 						"gg",
@@ -39,11 +39,11 @@ public class WebPracticeApplication {
 						"pol@gmail.com",
 						"polina");
 				System.out.println("polina");
-//
-//			Appeals answer1 = new Appeals(polina.getName() +" "+ polina.getSurname(), "text of answer");
+
+			Appeals answer1 = new Appeals(polina.getName() +" "+ polina.getSurname(), "text of answer");
 			News news1 = new News("title", "text of news1", "учебные новости");
+			admin.addAppeal(answer1);
 			userRepo.save(admin);
-//			appealsRepo.save(answer1);
 			newsRepo.save(news1);
 			}
 			catch (Exception e) {

@@ -1,9 +1,17 @@
 package com.webPractice.webPractice.News;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table
+@Getter
+@Setter
+@NoArgsConstructor
 public class News {
 
     @SequenceGenerator(
@@ -24,43 +32,12 @@ public class News {
 
     private String tag;
 
-    public News(){}
+    private LocalDate date_of_create;
 
     public News(String title, String text, String tag) {
         this.title = title;
         this.text = text;
         this.tag = tag;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
+        this.date_of_create = LocalDate.now();
     }
 }
