@@ -40,17 +40,24 @@ public class User {
 
     private boolean is_Admin;
 
+    private String icon = "https://avatars.mds.yandex.net/i?id=30ba25c368001a59a73785c51f2bbfcd-4907872-images-thumbs&n=13";
+
+    private String groupName;
+
+    @Column(columnDefinition = "TEXT")
+    private String about;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    @ToString.Exclude
     private List<Appeals> appealsList;
 
-    public User(String name, String surname, String role, String email, String password) {
+    public User(String name, String surname, String role, String email, String password, String groupName) {
         this.name = name;
         this.surname = surname;
         this.role = role;
         this.email = email;
         this.password = password;
+        this.groupName = groupName;
         this.is_Admin = false;
         this.appealsList = new ArrayList<>();
     }

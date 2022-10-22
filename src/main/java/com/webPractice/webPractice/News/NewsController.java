@@ -23,18 +23,25 @@ public class NewsController {
         return newsService.getNews();
     }
 
+    @GetMapping("/{newsId}")
+    public News getNewsById(@PathVariable("newsId") Integer newsId){
+        return newsService.getNewsById(newsId);
+    }
+
     @PostMapping("/add")
     public String add(@RequestBody News news){
         newsService.add(news);
         return "success";
     }
 
-    @PutMapping(path = "{newsId}")
+    @PutMapping(path = "/{newsId}")
     public void updateNews(
-            @PathVariable("newsId") Integer id,
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) String text,
-            @RequestParam(required = false) String tag){
-        newsService.updateNews(id, title, text, tag);
+            @PathVariable("newsId") Integer id, @RequestBody News news){
+        newsService.updateNews(id, news.getTitle(), news.getText(), news.getTag());
+    }
+
+    @DeleteMapping("/{newsId}")
+    public void deleteNews(@PathVariable("newsId") Integer newsId){
+        newsService.delete(newsId);
     }
 }

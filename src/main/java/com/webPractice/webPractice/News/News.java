@@ -28,11 +28,12 @@ public class News {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String text;
 
     private String tag;
 
-    private LocalDate date_of_create;
+    private LocalDate date_of_create = LocalDate.now();
 
     public News(String title, String text, String tag) {
         this.title = title;

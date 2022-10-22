@@ -22,6 +22,11 @@ public class NewsService {
         return newsRepo.findAll();
     }
 
+    public News getNewsById(Integer newsId) {
+        return newsRepo.findById(newsId).orElseThrow(()->
+                new IllegalStateException("not found news with id" + newsId));
+    }
+
     public void add(News news) {
         Optional<News> newsOptional =
                 newsRepo.findByTitle(news.getTitle());
@@ -49,6 +54,9 @@ public class NewsService {
             news.setTag(tag);
     }
 
-
-
+    public void delete(Integer newsId) {
+        if(!newsRepo.existsById(newsId))
+            throw new IllegalStateException("not found news with id" + newsId);
+        newsRepo.deleteById(newsId);
+    }
 }

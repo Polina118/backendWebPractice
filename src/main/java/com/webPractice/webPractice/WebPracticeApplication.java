@@ -27,9 +27,10 @@ public class WebPracticeApplication {
 				User admin = new User(
 						"admin",
 						"admin",
-						"Сотрудник",
+						"Студент",
 						"admin@gmail.com",
-						"password");
+						"password",
+						null);
 				System.out.println("admin");
 				admin.set_Admin(true);
 				User polina = new User(
@@ -37,7 +38,8 @@ public class WebPracticeApplication {
 						"gg",
 						"Студент",
 						"pol@gmail.com",
-						"polina");
+						"polina",
+						"vpr21");
 				System.out.println("polina");
 
 			Appeals answer1 = new Appeals(polina.getName() +" "+ polina.getSurname(), "text of answer");

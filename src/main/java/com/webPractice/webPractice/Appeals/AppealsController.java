@@ -36,7 +36,9 @@ public class AppealsController {
         User user = userRepo.findById(userId).orElseThrow(()->
                 new IllegalStateException("user not found"));
         String name = user.getName()+" "+user.getSurname();
-        user.addAppeal(new Appeals(name, appeals.getText()));
+        appeals.setName(name);
+        user.addAppeal(appeals);
+        appealsRepo.save(appeals);
     }
 }
 

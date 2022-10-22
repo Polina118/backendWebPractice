@@ -30,11 +30,11 @@ public class Appeals {
     @Column
     private String name; // name surname
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String text;
 
     @Column
-    private LocalDate date_of_create;
+    private LocalDate date_of_create = LocalDate.now();
 
     public Appeals(String text) {
         this.text = text;
@@ -43,6 +43,5 @@ public class Appeals {
     public Appeals(String name, String text) {
         this.name = name;
         this.text = text;
-        this.date_of_create = LocalDate.now();
     }
 }

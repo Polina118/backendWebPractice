@@ -2,10 +2,15 @@ package com.webPractice.webPractice.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -13,6 +18,9 @@ import java.util.Optional;
 public class UserController {
 
     private final UserRepository userRepo;
+
+//    private final String uploadPath =
+//            "C://Users//ISerg//IdeaProjects//backendWebPractice1//src//main//resources//img";
 
     @Autowired
     public UserController(UserRepository userRepo) {
@@ -43,4 +51,42 @@ public class UserController {
             throw new IllegalStateException("incorrect password");
         return user;
     }
+
+    @PutMapping("/icon{userId}")
+    @Transactional
+    public String addFile(@RequestParam("filename") String filename, @PathVariable("userId") Integer userId) {
+        if (filename == null || filename.length() == 0)
+            throw new IllegalStateException("file not found");
+        User user = userRepo.findById(userId).orElseThrow(()->
+                new IllegalStateException("user not found"));
+        user.setIcon(filename);
+        return filename;
+    }
+
+    @DeleteMapping("/icon{userId}")
+    @Transactional
+    public String deleteFile(@PathVariable("userId") Integer userId) {
+        User user = userRepo.findById(userId).orElseThrow(()->
+                new IllegalStateException("user not found"));
+        user.setIcon("https://avatars.mds.yandex.net/i?id=30ba25c368001a59a73785c51f2bbfcd-4907872-images-thumbs&n=13");
+        return user.getIcon();
+    }
+
+//    @PostMapping("/icon{userId}")
+//    public String addFile(@RequestPart() MultipartFile file, @PathVariable("userId") Integer userId) throws IOException {
+//        if (file !=null) {
+//            File uploadDir = new File(uploadPath);
+//            if (!uploadDir.exists())
+//                uploadDir.mkdir();
+//            String uuidFile = UUID.randomUUID().toString();
+//            String resultFileName= uuidFile+"."+file.getOriginalFilename();
+//
+//            file.transferTo(new File(uploadPath +"/"+resultFileName));
+//            User user = userRepo.findById(userId).orElseThrow(()->
+//                    new IllegalStateException("user not found"));
+//            user.setIcon(resultFileName);
+//            return resultFileName;
+//        }
+//        return null;
+//    }
 }
