@@ -72,21 +72,13 @@ public class UserController {
         return user.getIcon();
     }
 
-//    @PostMapping("/icon{userId}")
-//    public String addFile(@RequestPart() MultipartFile file, @PathVariable("userId") Integer userId) throws IOException {
-//        if (file !=null) {
-//            File uploadDir = new File(uploadPath);
-//            if (!uploadDir.exists())
-//                uploadDir.mkdir();
-//            String uuidFile = UUID.randomUUID().toString();
-//            String resultFileName= uuidFile+"."+file.getOriginalFilename();
-//
-//            file.transferTo(new File(uploadPath +"/"+resultFileName));
-//            User user = userRepo.findById(userId).orElseThrow(()->
-//                    new IllegalStateException("user not found"));
-//            user.setIcon(resultFileName);
-//            return resultFileName;
-//        }
-//        return null;
-//    }
+    @PutMapping("/{userId}")
+    @Transactional
+    public void about(@RequestParam String about, @PathVariable("userId") Integer userId){
+        User user = userRepo.findById(userId).orElseThrow(()->
+                new IllegalStateException("user not found"));
+        user.setAbout(about);
+    }
+
+
 }

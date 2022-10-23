@@ -30,6 +30,9 @@ public class Appeals {
     @Column
     private String name; // name surname
 
+    @Column
+    private String opponent;
+
     @Column(columnDefinition = "TEXT")
     private String text;
 

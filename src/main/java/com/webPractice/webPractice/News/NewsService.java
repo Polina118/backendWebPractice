@@ -33,6 +33,8 @@ public class NewsService {
         if (newsOptional.isPresent()){
             throw new IllegalStateException("title is taken");
         }
+        if (news.getTitle().length() == 0 || news.getText().length() == 0 || news.getTag().length() == 0)
+            throw  new IllegalStateException("news is empty");
         newsRepo.save(news);
     }
 
